@@ -4,6 +4,12 @@ const color = {
     lightBlue: '#63a4ff'
 }
 
+const height = {
+    navbar: 55,
+    control: 38
+}
+
 export default {
-    color
+    color,
+    height
 }
