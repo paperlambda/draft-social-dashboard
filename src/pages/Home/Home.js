@@ -22,8 +22,8 @@ const Home = (props) => {
       <Container>
         <Grid template="auto 300px">
           <div>
-            <Text variant="title" bold>Posts</Text>
             <AddPost />
+            <Text variant="title" bold>Posts</Text>
             <Posts/>
           </div>
           <div>

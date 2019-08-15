@@ -7,8 +7,8 @@ import styled from "styled-components";
 import Flex from "@/components/Flex";
 
 const AddPost = () => {
-  const [title, setTitle] = React.useState()
-  const [content, setContent] = React.useState()
+  const [title, setTitle] = React.useState('')
+  const [content, setContent] = React.useState('')
 
   const _didSubmit = () => {
     const payload = { title, body: content }
@@ -37,7 +37,8 @@ const AddPost = () => {
 
 const FormAdd = styled(Card)`
   padding: 15px;
-  margin-top: 10px;
+  margin-top: 40px;
+  margin-bottom: 20px;
   > form {
     margin-bottom: 0px;
   }
