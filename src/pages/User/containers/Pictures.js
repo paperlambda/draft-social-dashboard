@@ -1,5 +1,5 @@
 import React from 'react'
-import albumService from "@/services/albumService";
+import photoService from "@/services/photoService";
 import Modal from "@/components/Modal";
 
 const Pictures = (props) => {
@@ -14,7 +14,7 @@ const Pictures = (props) => {
   }, [])
 
   const _getPhotos = (id) => {
-    return albumService.getPhotos(id).subscribe({
+    return photoService.getPhotosByAlbum(id).subscribe({
       next: (res) => {
         setPhotos(res)
         setLoading(false)
