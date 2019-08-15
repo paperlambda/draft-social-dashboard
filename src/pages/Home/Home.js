@@ -1,13 +1,17 @@
 import React from 'react'
-import {userSetSelectedAction, usersGetAction} from '../store/actions/userActions';
+import {userSetSelectedAction, usersGetAction} from '@/store/actions/userActions';
 import {connect} from "react-redux";
-import { history } from "../store";
+import { history } from "@/store";
+import Posts from "./containers/Posts";
+import {postsGetAction} from "@/store/actions/postActions";
+import AddPost from "./containers/AddPost";
 
 const Home = (props) => {
   const { isLoading, users, error } = props
 
   React.useEffect(() => {
     props.usersGetAction()
+    props.postsGetAction()
   }, [])
 
   const _didClickUser = (user) => {
@@ -21,7 +25,7 @@ const Home = (props) => {
 
   return (
     <div>
-      <h3>Friends</h3>
+      <h3>Users</h3>
       <ul>
         {
           users.map((user) => (
@@ -31,6 +35,11 @@ const Home = (props) => {
           ))
         }
       </ul>
+
+      <AddPost />
+
+      <h3>Posts</h3>
+      <Posts/>
     </div>
   )
 }
@@ -43,5 +52,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   usersGetAction,
-  userSetSelectedAction
+  userSetSelectedAction,
+  postsGetAction
 })(Home)

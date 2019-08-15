@@ -3,7 +3,7 @@ import ErrorBoundary from "./containers/ErrorBoundary";
 import {ConnectedRouter} from "connected-react-router";
 import {history} from "./store";
 import {Route, Switch} from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import User from "./pages/User/User";
 
 const App = () => (

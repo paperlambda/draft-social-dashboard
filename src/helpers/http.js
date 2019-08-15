@@ -13,7 +13,7 @@ const http = (props) => {
     }
 
     if(props.body) {
-      options['body'] = props.body
+      options['body'] = JSON.stringify(props.body)
     }
 
     return from(fetch(url, options).then(res => res.json()))
