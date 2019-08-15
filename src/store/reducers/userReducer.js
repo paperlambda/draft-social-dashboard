@@ -1,9 +1,10 @@
-import {USER_GET, USER_GET_F, USER_GET_R} from "../actions/actionTypes";
+import {USER_GET, USER_GET_F, USER_GET_R, USER_SET_SELECTED} from "../actions/actionTypes";
 
 const initialState = {
   isLoading: false,
   users: [],
-  error: false
+  error: false,
+  selectedUser: null
 }
 
 export default (state = initialState, action) => {
@@ -25,6 +26,11 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.payload
+      }
+    case USER_SET_SELECTED:
+      return {
+        ...state,
+        selectedUser: action.payload
       }
 
     default:

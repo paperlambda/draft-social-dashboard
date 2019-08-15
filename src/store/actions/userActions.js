@@ -1,21 +1,20 @@
-import {USER_GET, USER_GET_F, USER_GET_R} from "./actionTypes";
+import {USER_SET_SELECTED, USER_GET, USER_GET_F, USER_GET_R} from "./actionTypes";
 
-const usersGetAction = () => ({
+export const usersGetAction = () => ({
   type: USER_GET,
 })
 
-const usersGetFAction = (data) => ({
+export const usersGetFAction = (data) => ({
   type: USER_GET_F,
   payload: data
 })
 
-const usersGetRAction = (error) => ({
+export const usersGetRAction = (error) => ({
   type: USER_GET_R,
   payload: error
 })
 
-export {
-  usersGetAction,
-  usersGetFAction,
-  usersGetRAction
-}
+export const userSetSelectedAction = (data) => ({
+  type: USER_SET_SELECTED,
+  payload: data
+})
