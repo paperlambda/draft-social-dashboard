@@ -5,16 +5,16 @@ import {ThemeProvider} from "styled-components";
 import GlobalStyles from "./styles/global";
 import theme from "./styles/theme";
 import {Provider} from "react-redux";
-import store from './store'
+import configureStore from './store'
+
+const store = configureStore()
 
 render(
   <ThemeProvider theme={theme}>
-    <>
+    <Provider store={store}>
       <GlobalStyles />
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </>
+      <App/>
+    </Provider>
   </ThemeProvider>,
   document.getElementById('app')
 )

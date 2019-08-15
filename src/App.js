@@ -1,7 +1,18 @@
 import React from 'react'
+import ErrorBoundary from "./containers/ErrorBoundary";
+import {ConnectedRouter} from "connected-react-router";
+import {history} from "./store";
+import {Route, Switch} from "react-router-dom";
+import Home from "./pages/Home";
 
 const App = () => (
-    <h1>App</h1>
+  <ErrorBoundary>
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route component={Home} />
+      </Switch>
+    </ConnectedRouter>
+  </ErrorBoundary>
 )
 
 export default App

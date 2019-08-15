@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "connected-react-router": "^6.5.2",
     "core-js": "^3.2.1",
     "express": "^4.17.1",
     "history": "^4.9.0",
