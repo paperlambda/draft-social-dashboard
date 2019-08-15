@@ -1,6 +1,9 @@
 import React from 'react'
 import photoService from "@/services/photoService";
 import Modal from "@/components/Modal";
+import Text from "@/components/Text";
+import styled from "styled-components";
+import Button from "@/components/Button";
 
 const Pictures = (props) => {
   const { didBack, album } = props
@@ -34,19 +37,22 @@ const Pictures = (props) => {
 
   return (
     <>
-      <a onClick={() => didBack()}>Back</a> <a>{album.title}'s photos</a>
+      <Button color="inverted" onClick={() => didBack()}>Back to Albums</Button>
+      <Text variant="title-sm" bold>{album.title}'s photos</Text>
       {
         isLoading && (<p>Loading...</p>)
       }
       {
         !isLoading && (
-          <ul>
+          <>
             {
               photos.map((photo) => (
-                <img onClick={() => _didSelectPhoto(photo)} src={photo.thumbnailUrl} alt={photo.title}/>
+                <Thumbnail onClick={() => _didSelectPhoto(photo)}>
+                  <img title="Click to preview" src={photo.thumbnailUrl} alt={photo.title}/>
+                </Thumbnail>
               ))
             }
-          </ul>
+          </>
         )
       }
       <Modal show={showModal} willClose={() => willCloseModal()}>
@@ -57,5 +63,12 @@ const Pictures = (props) => {
     </>
   )
 }
+
+const Thumbnail = styled('div')`
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  cursor: pointer;
+`
 
 export default Pictures

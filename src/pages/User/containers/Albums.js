@@ -2,6 +2,10 @@ import React from 'react'
 import {connect} from "react-redux";
 import userService from "../../../services/userService";
 import Pictures from "@/pages/User/containers/Pictures";
+import styled from "styled-components";
+import Button from "@/components/Button";
+import Flex from "@/components/Flex";
+import Text from "@/components/Text";
 
 const Albums = (props) => {
   const [isLoading, setLoading] = React.useState(true)
@@ -40,18 +44,38 @@ const Albums = (props) => {
   return (
     <>
       <h4>Albums</h4>
-      <ul>
-        {
-          albums.map((album) => (
-            <li key={album.id}>
-              <a onClick={() => _didClickAlbum(album)}>{album.title}</a>
-            </li>
-          ))
-        }
-      </ul>
+      {
+        albums.map((album) => (
+          <AlbumCard jc="flex-start" key={album.id}>
+            <Button onClick={() => _didClickAlbum(album)}>View</Button>
+            <div>
+              <Text variant="title-sm" bold>{album.title}</Text>
+            </div>
+          </AlbumCard>
+        ))
+      }
     </>
   )
 }
+
+const AlbumCard = styled(Flex)`
+  padding: 15px 20px;
+
+  button{
+    margin-right: 20px;
+  }
+  
+  > div{
+    margin-bottom: 8px;
+    &:last-child{
+      text-transform: capitalize;
+    }
+  }
+  
+  & + div {
+    border-top: 1px solid #f8f8f8;
+  }
+`
 
 const mapStateToProps = (state) => ({
   user: state.user.selectedUser

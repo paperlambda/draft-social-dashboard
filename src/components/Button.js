@@ -8,7 +8,7 @@ const Button = styled('button')`
       return css`
           background: ${props.theme.color.blue};
           color: white;
-          border: none;
+          border: 1px solid transparent;
         `
     case 'secondary':
       return css`
@@ -25,7 +25,7 @@ const Button = styled('button')`
           &:hover,&:focus{
             background: ${props.theme.color.blue};
             color: white;
-            border: none;
+            border: 1px solid transparent;
           }
         `
   }
@@ -38,7 +38,6 @@ const Button = styled('button')`
   padding: 0px 15px;
   font-size: 0.9rem;
   font-weight: bold;
-  line-height: 1.2;
   border-radius: 8px;
   
   cursor: pointer;

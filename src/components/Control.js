@@ -3,7 +3,6 @@ import styled, {css} from "styled-components";
 const baseControl = css`
   padding: 10px 15px;
   font-size: 0.9rem;
-  line-height: 1.2;
   border-radius: 8px;
   background: #ffffff;
   color: #000000;

@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from "react-redux";
 import userService from "../../../services/userService";
+import styled from "styled-components";
+import Text from "@/components/Text";
 
 const Posts = (props) => {
   const [isLoading, setLoading] = React.useState(true)
@@ -27,17 +29,32 @@ const Posts = (props) => {
 
   return (
     <>
-      <h4>Posts</h4>
-      <ul>
-        {
-          posts.map((post) => (
-            <li key={post.id}>{post.title}</li>
-          ))
-        }
-      </ul>
+      {
+        posts.map((post) => (
+          <PostCard key={post.id}>
+            <Text variant="title-sm" bold>{post.title}</Text>
+            <Text color="#888888">{post.body}</Text>
+          </PostCard>
+        ))
+      }
     </>
   )
 }
+
+const PostCard = styled('div')`
+  padding: 15px 20px;
+  
+  > div{
+    margin-bottom: 8px;
+    &:first-child{
+      text-transform: capitalize;
+    }
+  }
+  
+  & + div {
+    border-top: 1px solid #f8f8f8;
+  }
+`
 
 const mapStateToProps = (state) => ({
   user: state.user.selectedUser

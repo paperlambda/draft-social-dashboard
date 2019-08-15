@@ -17,7 +17,7 @@ const Text = styled('div')`
             line-height: 1.6;
           `
     case 'paragraph':
-      return css`a
+      return css`
             font-size: 0.9rem;
           `
     case 'caption':
@@ -25,7 +25,7 @@ const Text = styled('div')`
             font-size: 0.7rem;
           `
   }
-}};
+}}
 `
 
 Text.propTypes = {
