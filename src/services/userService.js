@@ -19,7 +19,7 @@ const getUserDetail = (id) => {
 
 const getUserPosts = (id) => {
   return http({
-    url: `/users/${id}/posts`
+    url: `/users/${id}/posts?_page=1`
   }).pipe(
     map((res) => res)
   )
@@ -27,7 +27,7 @@ const getUserPosts = (id) => {
 
 const getUserAlbums = (id) => {
   return http({
-    url: `/users/${id}/albums`
+    url: `/users/${id}/albums?_page=1`
   }).pipe(
     map((res) => res)
   )

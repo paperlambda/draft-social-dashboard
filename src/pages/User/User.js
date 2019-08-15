@@ -9,6 +9,7 @@ const User = (props) => {
   const { match, user } = props
   const [isLoading, setLoading] = React.useState(true)
   const [error, setError] = React.useState(false)
+  const [tab, setTab] = React.useState('albums')
 
   React.useEffect(() => {
     if(user){
@@ -47,8 +48,20 @@ const User = (props) => {
         <li>Mail: {user.email}</li>
         <li>Website: {user.website}</li>
       </ul>
-      <Posts />
-      <Albums/>
+      <>
+        <div>
+          <ul>
+            <li>
+              <a onClick={() => setTab('posts')}>Posts</a>
+            </li>
+            <li>
+              <a onClick={() => setTab('albums')}>Albums</a>
+            </li>
+          </ul>
+        </div>
+        { tab === 'posts' && <Posts />}
+        { tab === 'albums' && <Albums/>}
+      </>
     </div>
   )
 }
