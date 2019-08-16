@@ -5,6 +5,7 @@ import connect from "react-redux/es/connect/connect";
 import postService from "@/services/postService";
 import {Input, Textarea} from "@/components/Control";
 import Button from "@/components/Button";
+import Flex from "@/components/Flex";
 
 const Comments = (props) => {
   const [isLoading, setLoading] = React.useState(true)
@@ -13,6 +14,7 @@ const Comments = (props) => {
   const [body, setBody] = React.useState('')
   const [message, setMessage] = React.useState('')
   const [isSubmitting, setSubmit] = React.useState(false)
+  const [isEdit, setEdit] = React.useState(null)
 
   React.useEffect(() => {
     const { post } = props
@@ -32,9 +34,16 @@ const Comments = (props) => {
     })
   }
 
-  const _addComment = (e) => {
+  const _didSubmit = (e) => {
     e.preventDefault()
+    if(isEdit) {
+      _updateComment(isEdit)
+    } else {
+      _addComment()
+    }
+  }
 
+  const _addComment = () => {
     setSubmit(true)
     setMessage('')
 
@@ -53,9 +62,49 @@ const Comments = (props) => {
     })
   }
 
+  const _updateComment = (id) => {
+    setSubmit(true)
+    setMessage('')
+
+    const payload = { name, body, id}
+    return postService.updateComment(payload).subscribe({
+      next: () => {
+        setMessage('Comment updated!')
+        setSubmit(false)
+        _resetCommentForm()
+      },
+      error: () => {
+        setMessage('Failed to update comment')
+        setSubmit(false)
+      }
+    })
+  }
+
+  const _willDeleteComment = (comment) => {
+    return postService.deleteComment(comment.id).subscribe({
+      next: () => {
+        const filterDeleted = comments.filter((c) => c.id !== comment.id)
+        setComments(filterDeleted)
+      },
+      error: (err) => {
+        console.error((err))
+      }
+    })
+  }
+
+  const _willEditComment = (comment) => {
+    const { name, body, id } = comment
+    setName(name)
+    setBody(body)
+    setMessage('')
+    setEdit(id)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const _resetCommentForm = () => {
     setName('')
     setBody('')
+    setEdit(false)
   }
 
   return (
@@ -68,11 +117,20 @@ const Comments = (props) => {
       {
         !isLoading && (
           <>
-            <AddComment onSubmit={(e) => _addComment(e)}>
+            <AddComment id="form-edit" onSubmit={(e) => _didSubmit(e)}>
               <Input onChange={(e) => setName(e.target.value)} placeholder="Name" required value={name} />
               <Textarea onChange={(e) => setBody(e.target.value)} placeholder="Content" required value={body} />
               <Text>{message}</Text>
-              <Button disabled={isSubmitting}>Add Comment</Button>
+              {
+                isEdit ? (
+                  <Flex jc="flex-start">
+                    <Button type="submit" disabled={isSubmitting}>Update Comment</Button>
+                    <Button onClick={() => _resetCommentForm()} type="button" color="secondary" disabled={isSubmitting}>Cancel</Button>
+                  </Flex>
+                ) : (
+                  <Button disabled={isSubmitting}>Add Comment</Button>
+                )
+              }
             </AddComment>
             {
               comments.map((comm) => (
@@ -80,6 +138,10 @@ const Comments = (props) => {
                   <Text bold>{comm.name}</Text>
                   <Text>{comm.body}</Text>
                   <Text variant="caption">by {comm.email}</Text>
+                  <Toolbar jc="flex-start">
+                    <Button onClick={() => _willEditComment(comm)}>Edit</Button>
+                    <Button onClick={() => _willDeleteComment(comm)} color="inverted">Delete</Button>
+                  </Toolbar>
                 </CommentCard>
               ))
             }
@@ -109,6 +171,10 @@ const AddComment = styled('form')`
   padding: 15px;
   background: #f1f1f1;
   border-radius: 8px;
+`
+
+const Toolbar =  styled(Flex)`
+  margin-top: 20px
 `
 
 const mapStateToProps = (state) => ({

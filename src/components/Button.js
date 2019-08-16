@@ -51,6 +51,9 @@ const Button = styled('button')`
     cursor: not-allowed;
     
   }
+  & + button{
+    margin-left: 15px;
+  }
 `
 
 Button.propTypes = {

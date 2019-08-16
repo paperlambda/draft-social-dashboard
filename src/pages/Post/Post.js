@@ -160,10 +160,7 @@ const Root = styled(Card)`
 `
 
 const Toolbar =  styled(Flex)`
-  margin-top: 20px
-  > button {
-    margin-right: 15px;
-  }
+  margin-top: 20px;
 `
 
 const mapStateToProps = (state) => ({
