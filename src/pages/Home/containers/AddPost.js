@@ -24,12 +24,18 @@ const AddPost = () => {
       next: () => {
         setMessage('New Post Added!')
         setLoading(false)
+        _resetForm()
       },
       error: () => {
         setMessage('Failed to add new post')
         setLoading(false)
       }
     })
+  }
+
+  const _resetForm = () => {
+    setTitle('')
+    setContent('')
   }
 
   return (
