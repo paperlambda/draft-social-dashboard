@@ -28,7 +28,7 @@ const List = styled('div')`
 Posts.propTypes = {
   posts: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  error: PropTypes.object.isRequired
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired
 }
 
 const mapStateToProps = state => ({

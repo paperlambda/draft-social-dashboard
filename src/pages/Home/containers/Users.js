@@ -51,7 +51,7 @@ const List = styled(Card)`
 Users.propTypes = {
   users: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  error: PropTypes.object.isRequired,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
   userSetSelectedAction: PropTypes.func.isRequired
 }
 
