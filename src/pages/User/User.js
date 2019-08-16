@@ -119,7 +119,7 @@ const TabHeader = styled(Flex)`
 `
 
 User.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   match: PropTypes.shape({
     params: PropTypes.object
   }),

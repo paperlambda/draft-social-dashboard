@@ -35,7 +35,7 @@ const ModalBody = styled('div')`
 
 Modal.propTypes = {
   show: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   willClose: PropTypes.func.isRequired
 }
 
