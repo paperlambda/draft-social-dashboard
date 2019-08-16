@@ -3,33 +3,34 @@ import PropTypes from 'prop-types'
 
 const Button = styled('button')`
   ${props => {
-  switch (props.color) {
-    case 'primary':
-      return css`
+    switch (props.color) {
+      case 'primary':
+        return css`
           background: ${props.theme.color.blue};
           color: white;
           border: 1px solid transparent;
         `
-    case 'secondary':
-      return css`
+      case 'secondary':
+        return css`
           background: #ffffff;
           color: ${props.theme.color.blue};
           border: 1px solid #ffffff;
         `
-    case 'inverted':
-      return css`
+      case 'inverted':
+        return css`
           background: transparent;
           color: ${props.theme.color.blue};
           border: 1px solid ${props.theme.color.blue};
-          
-          &:hover,&:focus{
+
+          &:hover,
+          &:focus {
             background: ${props.theme.color.blue};
             color: white;
             border: 1px solid transparent;
           }
         `
-  }
-}}
+    }
+  }}
   
   width: ${props => (props.block ? '100%' : 'auto')}
   

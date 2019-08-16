@@ -8,19 +8,19 @@ const PORT = process.env.PORT || 2323
 app.use(express.static(path.join(__dirname, 'dist')))
 
 app.get('*', (req, res) => {
-    return res.sendFile(path.join(`${__dirname}/dist/index.html`))
+  return res.sendFile(path.join(`${__dirname}/dist/index.html`))
 })
 
 const server = app.listen(PORT, err => {
-    if (err) {
-        console.error(err)
-    }
+  if (err) {
+    console.error(err)
+  }
 
-    console.log(`Running on port ${PORT}`)
+  console.log(`Running on port ${PORT}`)
 })
 
 graceful.on('exit', done => {
-    server.close(() => {
-        done()
-    })
+  server.close(() => {
+    done()
+  })
 })

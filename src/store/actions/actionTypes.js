@@ -7,4 +7,3 @@ export const POST_GET = 'POST_GET'
 export const POST_GET_F = 'POST_GET_F'
 export const POST_GET_R = 'POST_GET_R'
 export const POST_SET_SELECTED = 'POST_SET_SELECTED'
-

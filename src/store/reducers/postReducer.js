@@ -2,9 +2,8 @@ import {
   POST_GET,
   POST_GET_F,
   POST_GET_R,
-  POST_SET_SELECTED,
-} from "../actions/actionTypes";
-import {POST_TOGGLE_MODAL} from "@/store/actions/actionTypes";
+  POST_SET_SELECTED
+} from '../actions/actionTypes'
 
 const initialState = {
   isLoading: false,

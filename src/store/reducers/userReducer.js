@@ -1,4 +1,9 @@
-import {USER_GET, USER_GET_F, USER_GET_R, USER_SET_SELECTED} from "../actions/actionTypes";
+import {
+  USER_GET,
+  USER_GET_F,
+  USER_GET_R,
+  USER_SET_SELECTED
+} from '../actions/actionTypes'
 
 const initialState = {
   isLoading: false,

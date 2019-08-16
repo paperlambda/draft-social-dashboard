@@ -1,13 +1,14 @@
-import Text from "@/components/Text";
-import React from "react";
-import styled from "styled-components";
-import connect from "react-redux/es/connect/connect";
-import postService from "@/services/postService";
-import {Input, Textarea} from "@/components/Control";
-import Button from "@/components/Button";
-import Flex from "@/components/Flex";
+import Text from '@/components/Text'
+import React from 'react'
+import styled from 'styled-components'
+import connect from 'react-redux/es/connect/connect'
+import postService from '@/services/postService'
+import { Input, Textarea } from '@/components/Control'
+import Button from '@/components/Button'
+import Flex from '@/components/Flex'
+import PropTypes from 'prop-types'
 
-const Comments = (props) => {
+const Comments = props => {
   const [isLoading, setLoading] = React.useState(true)
   const [comments, setComments] = React.useState(null)
   const [name, setName] = React.useState('')
@@ -21,22 +22,22 @@ const Comments = (props) => {
     _getComments(post.id)
   }, [])
 
-  const _getComments = (id) => {
+  const _getComments = id => {
     return postService.getPostComments(id).subscribe({
-      next: (res) => {
+      next: res => {
         setComments(res)
         setLoading(false)
       },
-      error: (err) => {
+      error: err => {
         console.error(err)
         setLoading(false)
       }
     })
   }
 
-  const _didSubmit = (e) => {
+  const _didSubmit = e => {
     e.preventDefault()
-    if(isEdit) {
+    if (isEdit) {
       _updateComment(isEdit)
     } else {
       _addComment()
@@ -48,7 +49,7 @@ const Comments = (props) => {
     setMessage('')
 
     const { post } = props
-    const payload = { name, body, postId: post.id}
+    const payload = { name, body, postId: post.id }
     return postService.addComment(payload).subscribe({
       next: () => {
         setMessage('New comment added!')
@@ -62,11 +63,11 @@ const Comments = (props) => {
     })
   }
 
-  const _updateComment = (id) => {
+  const _updateComment = id => {
     setSubmit(true)
     setMessage('')
 
-    const payload = { name, body, id}
+    const payload = { name, body, id }
     return postService.updateComment(payload).subscribe({
       next: () => {
         setMessage('Comment updated!')
@@ -80,19 +81,19 @@ const Comments = (props) => {
     })
   }
 
-  const _willDeleteComment = (comment) => {
+  const _willDeleteComment = comment => {
     return postService.deleteComment(comment.id).subscribe({
       next: () => {
-        const filterDeleted = comments.filter((c) => c.id !== comment.id)
+        const filterDeleted = comments.filter(c => c.id !== comment.id)
         setComments(filterDeleted)
       },
-      error: (err) => {
-        console.error((err))
+      error: err => {
+        console.error(err)
       }
     })
   }
 
-  const _willEditComment = (comment) => {
+  const _willEditComment = comment => {
     const { name, body, id } = comment
     setName(name)
     setBody(body)
@@ -109,45 +110,63 @@ const Comments = (props) => {
 
   return (
     <Root>
-      <Text variant="title-sm" bold>Comments</Text>
-      {
-        isLoading && <Text>Loading...</Text>
-      }
+      <Text variant="title-sm" bold>
+        Comments
+      </Text>
+      {isLoading && <Text>Loading...</Text>}
 
-      {
-        !isLoading && (
-          <>
-            <AddComment id="form-edit" onSubmit={(e) => _didSubmit(e)}>
-              <Input onChange={(e) => setName(e.target.value)} placeholder="Name" required value={name} />
-              <Textarea onChange={(e) => setBody(e.target.value)} placeholder="Content" required value={body} />
-              <Text>{message}</Text>
-              {
-                isEdit ? (
-                  <Flex jc="flex-start">
-                    <Button type="submit" disabled={isSubmitting}>Update Comment</Button>
-                    <Button onClick={() => _resetCommentForm()} type="button" color="secondary" disabled={isSubmitting}>Cancel</Button>
-                  </Flex>
-                ) : (
-                  <Button disabled={isSubmitting}>Add Comment</Button>
-                )
-              }
-            </AddComment>
-            {
-              comments.map((comm) => (
-                <CommentCard key={comm.id}>
-                  <Text bold>{comm.name}</Text>
-                  <Text>{comm.body}</Text>
-                  <Text variant="caption">by {comm.email}</Text>
-                  <Toolbar jc="flex-start">
-                    <Button onClick={() => _willEditComment(comm)}>Edit</Button>
-                    <Button onClick={() => _willDeleteComment(comm)} color="inverted">Delete</Button>
-                  </Toolbar>
-                </CommentCard>
-              ))
-            }
-          </>
-        )
-      }
+      {!isLoading && (
+        <>
+          <AddComment id="form-edit" onSubmit={e => _didSubmit(e)}>
+            <Input
+              onChange={e => setName(e.target.value)}
+              placeholder="Name"
+              required
+              value={name}
+            />
+            <Textarea
+              onChange={e => setBody(e.target.value)}
+              placeholder="Content"
+              required
+              value={body}
+            />
+            <Text>{message}</Text>
+            {isEdit ? (
+              <Flex jc="flex-start">
+                <Button type="submit" disabled={isSubmitting}>
+                  Update Comment
+                </Button>
+                <Button
+                  onClick={() => _resetCommentForm()}
+                  type="button"
+                  color="secondary"
+                  disabled={isSubmitting}
+                >
+                  Cancel
+                </Button>
+              </Flex>
+            ) : (
+              <Button disabled={isSubmitting}>Add Comment</Button>
+            )}
+          </AddComment>
+          {comments.map(comm => (
+            <CommentCard key={comm.id}>
+              <Text bold>{comm.name}</Text>
+              <Text>{comm.body}</Text>
+              <Text variant="caption">by {comm.email}</Text>
+              <Toolbar jc="flex-start">
+                <Button onClick={() => _willEditComment(comm)}>Edit</Button>
+                <Button
+                  onClick={() => _willDeleteComment(comm)}
+                  color="inverted"
+                >
+                  Delete
+                </Button>
+              </Toolbar>
+            </CommentCard>
+          ))}
+        </>
+      )}
     </Root>
   )
 }
@@ -159,7 +178,7 @@ const Root = styled('div')`
 
 const CommentCard = styled('div')`
   padding: 10px;
-  & + div{
+  & + div {
     border-top: 1px solid #f8f8f8;
   }
   > div {
@@ -173,11 +192,15 @@ const AddComment = styled('form')`
   border-radius: 8px;
 `
 
-const Toolbar =  styled(Flex)`
-  margin-top: 20px
+const Toolbar = styled(Flex)`
+  margin-top: 20px;
 `
 
-const mapStateToProps = (state) => ({
+Comments.propTypes = {
+  post: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
   post: state.post.selectedPost
 })
 

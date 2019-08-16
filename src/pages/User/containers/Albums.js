@@ -1,13 +1,13 @@
 import React from 'react'
-import {connect} from "react-redux";
-import userService from "../../../services/userService";
-import Pictures from "@/pages/User/containers/Pictures";
-import styled from "styled-components";
-import Button from "@/components/Button";
-import Flex from "@/components/Flex";
-import Text from "@/components/Text";
+import { connect } from 'react-redux'
+import userService from '../../../services/userService'
+import Pictures from '@/pages/User/containers/Pictures'
+import styled from 'styled-components'
+import Button from '@/components/Button'
+import Flex from '@/components/Flex'
+import Text from '@/components/Text'
 
-const Albums = (props) => {
+const Albums = props => {
   const [isLoading, setLoading] = React.useState(true)
   const [albums, setAlbums] = React.useState(null)
   const [activeAlbum, setActiveAlbum] = React.useState(null)
@@ -17,43 +17,41 @@ const Albums = (props) => {
     _getAlbums(user.id)
   }, [])
 
-  const _getAlbums = (id) => {
+  const _getAlbums = id => {
     setLoading(true)
     return userService.getUserAlbums(id).subscribe({
-      next: (res) => {
+      next: res => {
         setAlbums(res)
         setLoading(false)
       }
     })
   }
 
-  const _didClickAlbum = (album) => {
+  const _didClickAlbum = album => {
     setActiveAlbum(album)
   }
 
-  if(isLoading) {
+  if (isLoading) {
     return <p>Loading...</p>
   }
 
-  if(activeAlbum) {
-    return (
-      <Pictures didBack={() => setActiveAlbum(null)} album={activeAlbum} />
-    )
+  if (activeAlbum) {
+    return <Pictures didBack={() => setActiveAlbum(null)} album={activeAlbum} />
   }
 
   return (
     <>
       <h4>Albums</h4>
-      {
-        albums.map((album) => (
-          <AlbumCard jc="flex-start" key={album.id}>
-            <Button onClick={() => _didClickAlbum(album)}>View</Button>
-            <div>
-              <Text variant="title-sm" bold>{album.title}</Text>
-            </div>
-          </AlbumCard>
-        ))
-      }
+      {albums.map(album => (
+        <AlbumCard jc="flex-start" key={album.id}>
+          <Button onClick={() => _didClickAlbum(album)}>View</Button>
+          <div>
+            <Text variant="title-sm" bold>
+              {album.title}
+            </Text>
+          </div>
+        </AlbumCard>
+      ))}
     </>
   )
 }
@@ -61,23 +59,23 @@ const Albums = (props) => {
 const AlbumCard = styled(Flex)`
   padding: 15px 20px;
 
-  button{
+  button {
     margin-right: 20px;
   }
-  
-  > div{
+
+  > div {
     margin-bottom: 8px;
-    &:last-child{
+    &:last-child {
       text-transform: capitalize;
     }
   }
-  
+
   & + div {
     border-top: 1px solid #f8f8f8;
   }
 `
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.user.selectedUser
 })
 

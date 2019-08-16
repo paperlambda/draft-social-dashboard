@@ -1,11 +1,12 @@
 import React from 'react'
-import photoService from "@/services/photoService";
-import Modal from "@/components/Modal";
-import Text from "@/components/Text";
-import styled from "styled-components";
-import Button from "@/components/Button";
+import photoService from '@/services/photoService'
+import Modal from '@/components/Modal'
+import Text from '@/components/Text'
+import styled from 'styled-components'
+import Button from '@/components/Button'
+import PropTypes from 'prop-types'
 
-const Pictures = (props) => {
+const Pictures = props => {
   const { didBack, album } = props
   const [photos, setPhotos] = React.useState(null)
   const [isLoading, setLoading] = React.useState(true)
@@ -16,16 +17,16 @@ const Pictures = (props) => {
     _getPhotos(album.id)
   }, [])
 
-  const _getPhotos = (id) => {
+  const _getPhotos = id => {
     return photoService.getPhotosByAlbum(id).subscribe({
-      next: (res) => {
+      next: res => {
         setPhotos(res)
         setLoading(false)
       }
     })
   }
 
-  const _didSelectPhoto = (photo) => {
+  const _didSelectPhoto = photo => {
     setActivePhoto(photo)
     setModal(true)
   }
@@ -37,31 +38,42 @@ const Pictures = (props) => {
 
   return (
     <>
-      <Button color="inverted" onClick={() => didBack()}>Back to Albums</Button>
-      <Text variant="title-sm" bold>{album.title}'s photos</Text>
-      {
-        isLoading && (<p>Loading...</p>)
-      }
-      {
-        !isLoading && (
-          <>
-            {
-              photos.map((photo) => (
-                <Thumbnail onClick={() => _didSelectPhoto(photo)}>
-                  <img title="Click to preview" src={photo.thumbnailUrl} alt={photo.title}/>
-                </Thumbnail>
-              ))
-            }
-          </>
-        )
-      }
+      <Button color="inverted" onClick={() => didBack()}>
+        Back to Albums
+      </Button>
+      <Text variant="title-sm" bold>
+        {album.title}&apos;s photos
+      </Text>
+      {isLoading && <p>Loading...</p>}
+      {!isLoading && (
+        <>
+          {photos.map(photo => (
+            <Thumbnail key={photo.id} onClick={() => _didSelectPhoto(photo)}>
+              <img
+                title="Click to preview"
+                src={photo.thumbnailUrl}
+                alt={photo.title}
+              />
+            </Thumbnail>
+          ))}
+        </>
+      )}
       <Modal show={showModal} willClose={() => willCloseModal()}>
-        {
-          activePhoto && (<img style={{ maxWidth: '100%', height: 'auto'}} src={activePhoto.url} alt={activePhoto.title}/>)
-        }
+        {activePhoto && (
+          <img
+            style={{ maxWidth: '100%', height: 'auto' }}
+            src={activePhoto.url}
+            alt={activePhoto.title}
+          />
+        )}
       </Modal>
     </>
   )
+}
+
+Pictures.propTypes = {
+  album: PropTypes.object.isRequired,
+  didBack: PropTypes.func.isRequired
 }
 
 const Thumbnail = styled('div')`

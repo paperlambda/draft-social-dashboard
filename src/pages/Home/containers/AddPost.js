@@ -1,11 +1,11 @@
 import React from 'react'
-import postService from "@/services/postService";
-import Card from "@/components/Card";
-import Button from "@/components/Button";
-import {Input, Textarea} from "@/components/Control";
-import styled from "styled-components";
-import Flex from "@/components/Flex";
-import Text from "@/components/Text";
+import postService from '@/services/postService'
+import Card from '@/components/Card'
+import Button from '@/components/Button'
+import { Input, Textarea } from '@/components/Control'
+import styled from 'styled-components'
+import Flex from '@/components/Flex'
+import Text from '@/components/Text'
 
 const AddPost = () => {
   const [title, setTitle] = React.useState('')
@@ -13,7 +13,7 @@ const AddPost = () => {
   const [isLoading, setLoading] = React.useState(false)
   const [message, setMessage] = React.useState('')
 
-  const _didSubmit = (e) => {
+  const _didSubmit = e => {
     e.preventDefault()
     setLoading(true)
     setMessage('')
@@ -34,13 +34,24 @@ const AddPost = () => {
 
   return (
     <FormAdd>
-      <form onSubmit={(e) => _didSubmit(e)}>
-        <Input placeholder="Title..." required value={title} onChange={(e) => setTitle(e.target.value)} type="text"/>
-        <Textarea placeholder="Content..." required value={content} onChange={(e) => setContent(e.target.value)}/>
+      <form onSubmit={e => _didSubmit(e)}>
+        <Input
+          placeholder="Title..."
+          required
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          type="text"
+        />
+        <Textarea
+          placeholder="Content..."
+          required
+          value={content}
+          onChange={e => setContent(e.target.value)}
+        />
         <Text>{message}</Text>
         <Flex jc="flex-end">
           <Button disabled={isLoading}>
-            { isLoading ? 'Adding...' : 'Add Post' }
+            {isLoading ? 'Adding...' : 'Add Post'}
           </Button>
         </Flex>
       </form>

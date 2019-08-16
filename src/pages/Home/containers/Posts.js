@@ -1,22 +1,21 @@
 import React from 'react'
-import {connect} from "react-redux";
-import styled from "styled-components";
-import PostCard from "@/containers/PostCard";
+import { connect } from 'react-redux'
+import styled from 'styled-components'
+import PostCard from '@/containers/PostCard'
+import PropTypes from 'prop-types'
 
-const Posts = (props) => {
-  const { posts, isLoading, error } = props
+const Posts = props => {
+  const { posts, isLoading } = props
 
-  if(isLoading){
-    return (<p>Loading...</p>)
+  if (isLoading) {
+    return <p>Loading...</p>
   }
 
   return (
     <List>
-      {
-        posts.map((post) => (
-          <PostCard key={post.id} post={post} />
-        ))
-      }
+      {posts.map(post => (
+        <PostCard key={post.id} post={post} />
+      ))}
     </List>
   )
 }
@@ -26,7 +25,13 @@ const List = styled('div')`
   margin-top: 20px;
 `
 
-const mapStateToProps = (state) => ({
+Posts.propTypes = {
+  posts: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
   posts: state.post.posts,
   isLoading: state.post.isLoading,
   error: state.post.error

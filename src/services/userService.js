@@ -1,36 +1,28 @@
-import http from "../helpers/http";
-import {map}  from 'rxjs/operators'
+import http from '../helpers/http'
+import { map } from 'rxjs/operators'
 
 const getUsers = () => {
   return http({
     url: '/users'
-  }).pipe(
-    map((res) => res)
-  )
+  }).pipe(map(res => res))
 }
 
-const getUserDetail = (id) => {
+const getUserDetail = id => {
   return http({
     url: `/users/${id}`
-  }).pipe(
-    map((res) => res)
-  )
+  }).pipe(map(res => res))
 }
 
-const getUserPosts = (id) => {
+const getUserPosts = id => {
   return http({
     url: `/users/${id}/posts?_page=1`
-  }).pipe(
-    map((res) => res)
-  )
+  }).pipe(map(res => res))
 }
 
-const getUserAlbums = (id) => {
+const getUserAlbums = id => {
   return http({
     url: `/users/${id}/albums?_page=1`
-  }).pipe(
-    map((res) => res)
-  )
+  }).pipe(map(res => res))
 }
 
 const userService = {

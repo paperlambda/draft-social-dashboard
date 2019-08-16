@@ -1,11 +1,9 @@
 import React from 'react'
-import {connect} from "react-redux";
-import userService from "../../../services/userService";
-import styled from "styled-components";
-import Text from "@/components/Text";
-import PostCard from "@/containers/PostCard";
+import { connect } from 'react-redux'
+import userService from '../../../services/userService'
+import PostCard from '@/containers/PostCard'
 
-const Posts = (props) => {
+const Posts = props => {
   const [isLoading, setLoading] = React.useState(true)
   const [posts, setPosts] = React.useState(null)
 
@@ -14,32 +12,30 @@ const Posts = (props) => {
     _getPosts(user.id)
   }, [])
 
-  const _getPosts = (id) => {
+  const _getPosts = id => {
     setLoading(true)
     return userService.getUserPosts(id).subscribe({
-      next: (res) => {
+      next: res => {
         setPosts(res)
         setLoading(false)
       }
     })
   }
 
-  if(isLoading) {
+  if (isLoading) {
     return <p>Loading...</p>
   }
 
   return (
     <>
-      {
-        posts.map((post) => (
-          <PostCard post={post} key={post.id} />
-        ))
-      }
+      {posts.map(post => (
+        <PostCard post={post} key={post.id} />
+      ))}
     </>
   )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.user.selectedUser
 })
 
