@@ -2,7 +2,7 @@ import {
   POST_GET,
   POST_GET_F,
   POST_GET_R,
-  POST_SET_SELECTED
+  POST_SET_SELECTED, POST_TOGGLE_MODAL
 } from "./actionTypes";
 
 export const postsGetAction = () => ({

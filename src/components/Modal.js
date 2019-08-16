@@ -30,6 +30,8 @@ const Root = styled('div')`
 const ModalBody = styled('div')`
   margin: 10vh auto;
   max-width: 500px;
+  max-height: 90vh;
+  overflow: auto;
 `
 
 export default Modal

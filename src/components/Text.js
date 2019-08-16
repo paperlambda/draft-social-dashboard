@@ -9,12 +9,12 @@ const Text = styled('div')`
     case 'title':
       return css`
             font-size: 1.15rem;
-            line-height: 1.8;
+            margin-bottom: 15px;
           `
     case 'title-sm':
       return css`
             font-size: 1rem;
-            line-height: 1.6;
+            margin-bottom: 8px
           `
     case 'paragraph':
       return css`

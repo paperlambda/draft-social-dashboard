@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux";
 import styled from "styled-components";
-import Text from "@/components/Text";
+import PostCard from "@/containers/PostCard";
 
 const Posts = (props) => {
   const { posts, isLoading, error } = props
@@ -14,11 +14,7 @@ const Posts = (props) => {
     <List>
       {
         posts.map((post) => (
-          <PostCard>
-            <Text variant="title-sm" bold>{post.title}</Text>
-            <Text color="#888888">{post.body}</Text>
-            <Text variant="caption">created by {post.userId}</Text>
-          </PostCard>
+          <PostCard key={post.id} post={post} />
         ))
       }
     </List>
@@ -28,21 +24,6 @@ const Posts = (props) => {
 const List = styled('div')`
   background: #ffffff;
   margin-top: 20px;
-`
-
-const PostCard = styled('div')`
-  padding: 15px 20px;
-  
-  > div{
-    margin-bottom: 8px;
-    &:first-child{
-      text-transform: capitalize;
-    }
-  }
-  
-  & + div {
-    border-top: 1px solid #f8f8f8;
-  }
 `
 
 const mapStateToProps = (state) => ({

@@ -6,6 +6,7 @@ import {Route, Switch} from "react-router-dom";
 import Home from "./pages/Home/Home";
 import User from "./pages/User/User";
 import Navbar from "./containers/Navbar";
+import Post from "./pages/Post/Post";
 
 const App = () => (
   <ErrorBoundary>
@@ -14,6 +15,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/users/:id" component={User} />
+        <Route exact path="/posts/:id" component={Post} />
         <Route component={Home} />
       </Switch>
     </ConnectedRouter>
