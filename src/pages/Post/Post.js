@@ -183,7 +183,7 @@ const Toolbar = styled(Flex)`
 `
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired,
+  post: PropTypes.object,
   match: PropTypes.shape({
     params: PropTypes.object
   }),
