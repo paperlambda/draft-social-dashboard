@@ -1,11 +1,7 @@
 import React from 'react'
 import postService from '@/services/postService'
-import Card from '@/components/Card'
-import Button from '@/components/Button'
-import { Input, Textarea } from '@/components/Control'
 import styled from 'styled-components'
-import Flex from '@/components/Flex'
-import Text from '@/components/Text'
+import { Text, Flex, Button, Card, Input, Textarea } from '@/components'
 
 const AddPost = () => {
   const [title, setTitle] = React.useState('')

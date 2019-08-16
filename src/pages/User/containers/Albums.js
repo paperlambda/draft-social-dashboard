@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import userService from '../../../services/userService'
 import Pictures from '@/pages/User/containers/Pictures'
 import styled from 'styled-components'
-import Button from '@/components/Button'
-import Flex from '@/components/Flex'
-import Text from '@/components/Text'
+import { Button, Flex, Text } from '@/components'
 
 const Albums = props => {
   const [isLoading, setLoading] = React.useState(true)

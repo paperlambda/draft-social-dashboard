@@ -1,12 +1,9 @@
-import Text from '@/components/Text'
 import React from 'react'
 import styled from 'styled-components'
 import connect from 'react-redux/es/connect/connect'
 import postService from '@/services/postService'
-import { Input, Textarea } from '@/components/Control'
-import Button from '@/components/Button'
-import Flex from '@/components/Flex'
 import PropTypes from 'prop-types'
+import { Flex, Button, Input, Text, Textarea } from '@/components'
 
 const Comments = props => {
   const [isLoading, setLoading] = React.useState(true)

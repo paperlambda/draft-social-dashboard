@@ -1,10 +1,8 @@
 import React from 'react'
 import photoService from '@/services/photoService'
-import Modal from '@/components/Modal'
-import Text from '@/components/Text'
 import styled from 'styled-components'
-import Button from '@/components/Button'
 import PropTypes from 'prop-types'
+import { Button, Text, Modal } from '@/components'
 
 const Pictures = props => {
   const { didBack, album } = props

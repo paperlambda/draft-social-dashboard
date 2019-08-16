@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Container from '@/components/Container'
-import Text from '@/components/Text'
-import Flex from '@/components/Flex'
+import { Container, Text, Flex } from '@/components'
 
 const Navbar = () => {
   return (

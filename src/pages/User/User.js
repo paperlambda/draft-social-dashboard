@@ -4,14 +4,10 @@ import { connect } from 'react-redux'
 import { userSetSelectedAction } from '../../store/actions/userActions'
 import Posts from './containers/Posts'
 import Albums from './containers/Albums'
-import Main from '@/components/Main'
-import Container from '@/components/Container'
-import Text from '@/components/Text'
 import styled from 'styled-components'
-import Flex from '@/components/Flex'
 import { Link } from 'react-router-dom'
-import Button from '@/components/Button'
 import PropTypes from 'prop-types'
+import { Button, Flex, Text, Container, Main } from '@/components'
 
 const User = props => {
   const { match, user } = props

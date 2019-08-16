@@ -1,10 +1,10 @@
-import Text from '@/components/Text'
 import React from 'react'
 import styled from 'styled-components'
 import { postSetSelectedAction } from '@/store/actions/postActions'
 import { connect } from 'react-redux'
 import { history } from '@/store'
 import PropTypes from 'prop-types'
+import { Text } from '@/components'
 
 const PostCard = props => {
   const { post } = props

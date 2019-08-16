@@ -3,11 +3,8 @@ import { connect } from 'react-redux'
 import { history } from '@/store'
 import { userSetSelectedAction } from '@/store/actions/userActions'
 import styled from 'styled-components'
-import Flex from '@/components/Flex'
-import Text from '@/components/Text'
-import Button from '@/components/Button'
-import Card from '@/components/Card'
 import PropTypes from 'prop-types'
+import { Card, Button, Text, Flex } from '@/components'
 
 const Users = props => {
   const { isLoading, users } = props

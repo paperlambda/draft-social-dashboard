@@ -1,18 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import postService from '@/services/postService'
-import Text from '@/components/Text'
-import Card from '@/components/Card'
 import { postSetSelectedAction } from '@/store/actions/postActions'
 import styled from 'styled-components'
-import Container from '@/components/Container'
-import Main from '@/components/Main'
 import { history } from '@/store'
-import Button from '@/components/Button'
 import Comments from './containers/Comments'
-import { Input, Textarea } from '@/components/Control'
-import Flex from '@/components/Flex'
 import PropTypes from 'prop-types'
+import {
+  Flex,
+  Input,
+  Textarea,
+  Main,
+  Button,
+  Container,
+  Text,
+  Card
+} from '@/components'
 
 const Post = props => {
   const { post, match } = props
