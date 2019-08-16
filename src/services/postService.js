@@ -27,6 +27,25 @@ const addPost = (body) => {
   )
 }
 
+const deletePost = (id) => {
+  return http({
+    url: `/posts/${id}`,
+    method: 'DELETE'
+  }).pipe(
+    map((res) => res)
+  )
+}
+
+const updatePost = (body) => {
+  return http({
+    url: `/posts/${body.postId}`,
+    method: 'PATCH',
+    body
+  }).pipe(
+    map((res) => res)
+  )
+}
+
 const getPostComments = (id) => {
   return http({
     url: `/posts/${id}/comments?_page=1`
@@ -45,12 +64,25 @@ const addComment = (body) => {
   )
 }
 
+const updateComment = (body) => {
+  return http({
+    url: `/comments/${id}`,
+    method: 'PATCH',
+    body
+  }).pipe(
+    map((res) => res)
+  )
+}
+
 const postService = {
   getPosts,
   getPost,
   addPost,
+  deletePost,
   getPostComments,
-  addComment
+  addComment,
+  updateComment,
+  updatePost
 }
 
 export default postService

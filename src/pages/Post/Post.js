@@ -10,10 +10,18 @@ import Main from "@/components/Main";
 import {history} from "@/store";
 import Button from "@/components/Button";
 import Comments from "./containers/Comments";
+import {Input, Textarea} from "@/components/Control";
+import Flex from "@/components/Flex";
 
 const Post = (props) => {
   const { post, match } = props
   const [isLoading, setLoading] = React.useState(true)
+  const [isEdit, setEdit] = React.useState()
+  const [title, setTitle] = React.useState('')
+  const [content, setContent] = React.useState('')
+  const [isUpdating, setUpdating] = React.useState(false)
+  const [message, setMessage] = React.useState('')
+  const [isDeleting, setDelete] = React.useState('')
 
   React.useEffect(() => {
     if(post) {
@@ -37,6 +45,63 @@ const Post = (props) => {
     })
   }
 
+  const _didCancelEdit = () => {
+    setEdit(false)
+    _resetEditForm()
+  }
+
+  const _willUpdatePost = () => {
+    const { post } = props
+    setTitle(post.title)
+    setContent(post.body)
+    setEdit(true)
+  }
+
+  const _didUpdatePost = (e) => {
+    e.preventDefault()
+    const { post } = props
+    const payload = { title, body: content, postId: post.id}
+    setUpdating(true)
+    return postService.updatePost(payload).subscribe({
+      next: () => {
+        setMessage('Comment updated!')
+        setUpdating(false)
+        setTimeout(() => {
+          setEdit(false)
+        }, 1000)
+      },
+      error: (err) =>{
+        console.error(err)
+        setMessage('Failed to update comment')
+        setUpdating(false)
+      }
+    })
+
+  }
+
+  const _willDelete = () => {
+    const { post } = props
+    setDelete(true)
+    return postService.deletePost(post.id).subscribe({
+      next: () => {
+        setTimeout(() => {
+          setDelete(false)
+          history.goBack()
+        })
+      },
+      error: (err) => {
+        console.error(err)
+        setDelete(false)
+      }
+    })
+  }
+
+  const _resetEditForm = () => {
+    setTitle('')
+    setContent('')
+    setMessage('')
+  }
+
   const _willGoBack = () => {
     history.goBack()
   }
@@ -52,10 +117,30 @@ const Post = (props) => {
           {
             !isLoading && (
               <>
-                <div>
-                  <Text variant="title" bold>{post.title}</Text>
-                  <Text>{post.body}</Text>
-                </div>
+                {
+                  isEdit ? (
+                    <form onSubmit={(e) => _didUpdatePost(e)}>
+                      <Input placeholder="Title..." required value={title} onChange={(e) => setTitle(e.target.value)} type="text"/>
+                      <Textarea placeholder="Content..." required value={content} onChange={(e) => setContent(e.target.value)}/>
+                      <Text>{message}</Text>
+                      <Button type="submit" disabled={isUpdating}>Update</Button>
+                      <Button type="button" color="secondary" onClick={() => _didCancelEdit()} disabled={isUpdating}>Cancel</Button>
+                    </form>
+                  ) : (
+                    <div>
+                      <Text variant="title" bold>{post.title}</Text>
+                      <Text>{post.body}</Text>
+                      <Toolbar jc="flex-start">
+                        <Button onClick={() => _willUpdatePost()}>Edit</Button>
+                        <Button onClick={() => _willDelete()} color="inverted">
+                          {
+                            isDeleting ? 'Deleting...' : 'Delete'
+                          }
+                        </Button>
+                      </Toolbar>
+                    </div>
+                  )
+                }
                 <Comments/>
               </>
             )
@@ -71,6 +156,13 @@ const Root = styled(Card)`
   margin-top: 20px;
   > div:first-child {
     margin-bottom: 30px;
+  }
+`
+
+const Toolbar =  styled(Flex)`
+  margin-top: 20px
+  > button {
+    margin-right: 15px;
   }
 `
 
