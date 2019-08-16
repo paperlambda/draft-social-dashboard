@@ -5,30 +5,43 @@ import Button from "@/components/Button";
 import {Input, Textarea} from "@/components/Control";
 import styled from "styled-components";
 import Flex from "@/components/Flex";
+import Text from "@/components/Text";
 
 const AddPost = () => {
   const [title, setTitle] = React.useState('')
   const [content, setContent] = React.useState('')
+  const [isLoading, setLoading] = React.useState(false)
+  const [message, setMessage] = React.useState('')
 
-  const _didSubmit = () => {
+  const _didSubmit = (e) => {
+    e.preventDefault()
+    setLoading(true)
+    setMessage('')
+
     const payload = { title, body: content }
+
     return postService.addPost(payload).subscribe({
-      next: (e) => {
-        console.log(e)
+      next: () => {
+        setMessage('New Post Added!')
+        setLoading(false)
       },
-      error: (err) => {
-        console.log(err)
+      error: () => {
+        setMessage('Failed to add new post')
+        setLoading(false)
       }
     })
   }
 
   return (
     <FormAdd>
-      <form onSubmit={() => _didSubmit()}>
+      <form onSubmit={(e) => _didSubmit(e)}>
         <Input placeholder="Title..." required value={title} onChange={(e) => setTitle(e.target.value)} type="text"/>
         <Textarea placeholder="Content..." required value={content} onChange={(e) => setContent(e.target.value)}/>
+        <Text>{message}</Text>
         <Flex jc="flex-end">
-          <Button>Add Post</Button>
+          <Button disabled={isLoading}>
+            { isLoading ? 'Adding...' : 'Add Post' }
+          </Button>
         </Flex>
       </form>
     </FormAdd>

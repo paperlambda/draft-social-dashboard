@@ -44,6 +44,13 @@ const Button = styled('button')`
   pointer-events: auto;
   box-sizing: border-box;
   outline: none;
+  
+  &:disabled{
+    background: #cccccc;
+    color: #888888;
+    cursor: not-allowed;
+    
+  }
 `
 
 Button.propTypes = {
